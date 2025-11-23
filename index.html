@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divulgação de pesquisa - Cuidar é Proteger</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Variáveis de Cor e Fonte --- */
+        :root {
+            --dark-blue: #3A3A69;
+            --light-teal: #B9D4D1;
+            --beige: #EAEAE2;
+            --text-light: #FFFFFF;
+            --text-dark: #222222;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* --- Configurações Globais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-blue);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        /* Alinhamento justificado para parágrafos e listas */
+        p, li {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        li {
+            list-style-position: inside;
+        }
+
+        /* --- Layout de Grid --- */
+        .grid-2-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* --- Imagens --- */
+        img.responsive-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* --- BARRA DE NAVEGAÇÃO --- */
+        header {
+            background-color: #cde3e0;
+            padding: 10px 0; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+        
+        /* Contêiner da navegação */
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between; /* Separa Logo e Menu */
+            align-items: center;
+            min-height: 60px; /* (AUMENTADO) Altura mínima maior para caber o logo */
+        }
+
+        /* (AJUSTADO) Estilo do Logotipo */
+        .logo a {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px; /* (AUMENTADO) De 50px para 80px */
+            width: auto;  
+            margin-right: 10px;
+            display: block; 
+            transition: height 0.3s ease; /* Animação suave se mudar de tamanho */
+        }
+
+        /* Botão Hambúrguer */
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger-menu svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--dark-blue);
+        }
+        
+        /* Links de navegação */
+        .nav-links {
+            display: block; 
+        }
+
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px; 
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue); 
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        .nav-links a.active {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+        
+        /* --- Seção: Cuidar é Proteger --- */
+        .hero .text-content {
+            max-width: 450px;
+        }
+
+        /* --- Seção: Protegendo o Presente --- */
+        .protect .text-content h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* --- Seção: O que está acontecendo --- */
+        .happening ol {
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* --- Seção: Por que deixam de vacinar? --- */
+        .why-stop {
+            text-align: center;
+        }
+        
+        .why-stop .container {
+            max-width: 1200px;
+        }
+
+        .why-stop h2 {
+            margin-bottom: 40px;
+        }
+
+        .why-stop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: left;
+        }
+
+        .why-stop-item strong {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--light-teal);
+        }
+        
+        .why-stop-item h4 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* --- Seção: Riscos --- */
+        .risks {
+            background-color: var(--light-teal);
+            color: var(--text-dark);
+        }
+        
+        .risks h2 {
+            text-align: center; 
+        }
+        
+        .risks .container {
+             max-width: 900px;
+        }
+        
+        .risks p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .risks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* --- Seção: Colaborar --- */
+        .collaborate {
+            background-color: var(--dark-blue);
+            color: var(--text-light);
+        }
+        
+        .collaborate .container {
+            max-width: 1000px;
+        }
+        
+        .collaborate h2 {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .collab-card {
+            background-color: var(--beige);
+            color: var(--text-dark);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* --- Seção: Artigos (Fundo Verde-Água) --- */
+        .articles {
+            background-color: var(--light-teal);
+            color: var(--text-dark);
+        }
+        
+        .articles .container {
+            max-width: 900px;
+        }
+        
+        .article-item {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 20px 0;
+        }
+        
+        .article-item:last-child {
+            border-bottom: none;
+        }
+        
+        .article-item h4 {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .article-item .source {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .article-item .citation {
+            font-size: 0.9rem;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        /* --- Responsividade (Telas Pequenas) --- */
+        @media (max-width: 768px) {
+            .grid-2-cols {
+                grid-template-columns: 1fr;
+            }
+            
+            .protect .image-content {
+                order: -1;
+            }
+
+            .why-stop-grid,
+            .risks-grid,
+            .collab-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            /* (AJUSTADO) Logo no Mobile */
+            .logo img {
+                height: 60px; /* Um pouco menor no celular para não ocupar tudo */
+            }
+
+            /* --- CSS DO MENU HAMBÚRGUER --- */
+            .nav-container {
+                justify-content: space-between; /* Mantém Logo e Botão separados */
+            }
+
+            .hamburger-menu {
+                display: block; 
+                z-index: 1100;
+            }
+
+            .nav-links {
+                display: none; 
+                position: absolute;
+                top: 80px; /* (AJUSTADO) Aumentado para compensar header maior */
+                right: 0;
+                background-color: #cde3e0;
+                width: 70%; 
+                box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+                border-radius: 0 0 0 8px;
+            }
+            
+            .nav-links.active {
+                display: block; 
+            }
+
+            .nav-links ul {
+                flex-direction: column; 
+                gap: 0;
+                width: 100%;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: right; 
+            }
+
+            .nav-links a {
+                display: block; 
+                padding: 15px 20px; 
+                width: 100%;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(58, 58, 105, 0.1);
+            }
+            
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho com navegação -->
+    <header>
+        <div class="nav-container">
+            
+            <!-- Logotipo -->
+            <div class="logo">
+                <a href="index.html">
+                    <!-- AQUI ESTÁ A IMAGEM DO LOGO -->
+                    <img src="logo.png" alt="Logo Cuidar é Proteger" onerror="this.style.display='none'; this.parentNode.innerText='Cuidar é Proteger'">
+                </a>
+            </div>
+
+            <!-- Botão Hambúrguer (Direita no Mobile) -->
+            <button class="hamburger-menu" aria-label="Abrir menu" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+
+            <!-- Menu (links) -->
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html" class="active">Divulgação de informações</a></li>
+                    <li><a href="sobre.html">Sobre nós</a></li>
+                    <li><a href="pesquisa.html">Pesquisa completa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main>
+
+        <section class="hero">
+            <div class="container grid-2-cols">
+                <div class="text-content">
+                    <h2>Cuidar é Proteger!</h2>
+                    <p>A vacinação é um dos maiores avanços da saúde pública. Cada dose aplicada representa um passo importante na proteção contra doenças graves e na construção de um futuro mais saudável.
+Nos últimos anos, porém, o Brasil vem enfrentando um desafio preocupante: a queda na cobertura vacinal infantil.
+Este site foi criado para informar, conscientizar e fortalecer a confiança nas vacinas, mostrando como todos nós — pais, cuidadores, estudantes e profissionais de saúde — podemos ajudar a mudar esse cenário.
+</p>
+                </div>
+                <div class="image-content">
+                    <img src="crianca-vacina.jpg" alt="Criança sendo vacinada por uma profissional de saúde" class="responsive-img">
+                </div>
+            </div>
+        </section>
+
+        <section class="protect">
+            <div class="container grid-2-cols">
+                <div class="image-content">
+                    <img src="criancas-mascaras.jpg" alt="Crianças de máscara na escola" class="responsive-img">
+                </div>
+                <div class="text-content">
+                    <h2>Protegendo o presente e o futuro das nossas crianças</h2>
+                    <h4>Para que vacinar é tão importante?</h4>
+                    <p>A vacinação protege não só quem recebe a dose, mas também toda a comunidade.
+Graças às vacinas, o Brasil conseguiu eliminar doenças como a varíola e a poliomielite, e reduzir drasticamente casos de sarampo, difteria e coqueluche. Quando muitas pessoas estão vacinadas, ocorre a chamada imunidade coletiva, que impede a circulação dos vírus e protege até quem não pode se vacinar.
+Vacinar é, portanto, um ato de amor e responsabilidade com a vida.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="happening">
+            <div class="container grid-2-cols">
+                <div class="text-content">
+                    <h2>O que está acontecendo no Brasil?</h2>
+                    <ol>
+                        <li>A cobertura da tríplice viral (sarampo, caxumba e rubéola) caiu de 95% em 2015 para 71% em 2022.</li>
+                        <li>A vacina contra a poliomielite chegou a apenas 67% do público-alvo.</li>
+                    </ol>
+
+                    <h3>Como isso nos afeta?</h3>
+                    <p>Essa redução abre espaço para o retorno de doenças que já estavam controladas.
+Em 2022, o Brasil registrou 8.742 casos de sarampo, uma doença que havia sido considerada eliminada em 2016.</p>
+                </div>
+                <div class="image-content">
+                    <img src="seringa-frasco.jpg" alt="Seringa e frasco de vacina" class="responsive-img">
+                </div>
+            </div>
+        </section>
+
+        <section class="why-stop">
+            <div class="container">
+                <h2>Por que algumas famílias deixam de vacinar?</h2>
+                <div class="why-stop-grid">
+                    <div class="why-stop-item">
+                        <strong>1</strong>
+                        <h4>Desinformação</h4>
+                        <p>Muitas pessoas acreditam em notícias falsas sobre vacinas, principalmente nas redes sociais.</p>
+                    </div>
+                    <div class="why-stop-item">
+                        <strong>2</strong>
+                        <h4>Dificuldade de acesso</h4>
+                        <p>Falta de transporte, horários limitados ou escassez de profissionais dificultam a ida aos postos.</p>
+                    </div>
+                    <div class="why-stop-item">
+                        <strong>3</strong>
+                        <h4>Impacto da pandemia de COVID-19</h4>
+                        <p>Interrompeu campanhas, gerou insegurança e sobrecarga do sistema de saúde.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="risks">
+            <div class="container">
+                <h2>Riscos da baixa cobertura vacinal</h2>
+                <p>Além do retorno de doenças erradicadas, a baixa cobertura vacinal facilita a propagação de surtos, sobrecarrega o sistema de saúde e pode levar a complicações graves e até mesmo mortes que poderiam ser evitadas com vacinas.</p>
+                
+                <div class="risks-grid">
+                    <div class="image-content">
+                        <img src="risco-seringa-1.jpg" alt="Mão com luva segurando seringa" class="responsive-img">
+                    </div>
+                    <div class="image-content">
+                        <img src="risco-seringa-2.jpg" alt="Mão com luva segurando frasco de vacina" class="responsive-img">
+                    </div>
+                    <div class="image-content">
+                        <img src="risco-seringa-3.jpg" alt="Mão com luva segurando seringa" class="responsive-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="collaborate">
+            <div class="container">
+                <h2>Como você pode colaborar:</h2>
+                <div class="collab-grid">
+                    <div class="collab-card">
+                        Compartilhe informações verdadeiras sobre vacinas.
+                    </div>
+                    <div class="collab-card">
+                        Mantenha a caderneta de vacinação das crianças em dia.
+                    </div>
+                    <div class="collab-card">
+                        Converse com os profissionais de saúde e tire suas dúvidas.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="articles">
+            <div class="container">
+                <h2>Sobre este site</h2>
+                <p>Este site faz parte do projeto de Pesquisa “Baixa Cobertura Vacinal Infantil: Uma Análise das Principais Barreiras”, desenvolvido por Monique Isabelle Camargo de Lima e Priscila Francisco de Oliveira, no curso Técnico em Enfermagem da ETEC Cáceres – MT.</p>
+
+                <div class="article-list">
+                    <div class="article-item">
+                        <h4>Escola Técnica Estadual de Educação Profissional e Tecnológica de Cáceres - Prof. Adriano Silva</h4>
+                        <span class="source">Jardim Celeste, Cáceres - MT, 78200-000</span>
+                        <p class="citation">Cáceres, Mato Grosso - 2025</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SCRIPT PARA O MENU HAMBÚRGUER -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+
+</body>
+</html>

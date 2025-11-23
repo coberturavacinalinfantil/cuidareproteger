@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Cuidar é Proteger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Variáveis de Cor e Fonte --- */
+        :root {
+            --dark-blue: #3A3A69;
+            --light-teal: #B9D4D1;
+            --beige: #EAEAE2;
+            --light-mint: #E0EFEF; 
+            --text-light: #FFFFFF;
+            --text-dark: #222222;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* --- Configurações Globais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--light-mint); 
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* --- BARRA DE NAVEGAÇÃO --- */
+        header {
+            background-color: #cde3e0;
+            padding: 10px 0; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            min-height: 60px; /* (IGUAL AO INDEX) Altura mínima */
+        }
+
+        /* Estilo do Logotipo */
+        .logo a {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px; /* (IGUAL AO INDEX) Altura maior */
+            width: auto;
+            margin-right: 10px;
+            display: block;
+            transition: height 0.3s ease;
+        }
+
+        /* Botão Hambúrguer */
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger-menu svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--dark-blue);
+        }
+        
+        /* Links de navegação */
+        .nav-links {
+            display: block; 
+        }
+
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px; 
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue); 
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        .nav-links a.active {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        /* --- ESTILOS DA PÁGINA SOBRE NÓS --- */
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .about-container h2 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+        }
+        
+        .about-container > p { 
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .profile-card {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden; 
+        }
+        
+        .profile-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .profile-card .info {
+            padding: 25px;
+        }
+        
+        .profile-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+        
+        .profile-card .role {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+        
+        .profile-card p {
+            font-size: 0.95rem;
+            text-align: justify;
+            color: #333;
+        }
+
+        /* --- Responsividade (Telas Pequenas) --- */
+        @media (max-width: 768px) {
+            
+            /* Ajuste da Logo no Mobile */
+            .logo img {
+                height: 60px; /* (IGUAL AO INDEX) Um pouco menor no mobile */
+            }
+
+            /* --- CSS DO MENU HAMBÚRGUER --- */
+            .nav-container {
+                justify-content: space-between; 
+            }
+
+            .hamburger-menu {
+                display: block; 
+                z-index: 1100;
+            }
+
+            .nav-links {
+                display: none; 
+                position: absolute;
+                top: 80px; /* (AJUSTADO) Para compensar o header maior */
+                right: 0;
+                background-color: #cde3e0;
+                width: 70%; 
+                box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+                border-radius: 0 0 0 8px;
+            }
+            
+            .nav-links.active {
+                display: block; 
+            }
+
+            .nav-links ul {
+                flex-direction: column; 
+                gap: 0;
+                width: 100%;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: right; 
+            }
+
+            .nav-links a {
+                display: block; 
+                padding: 15px 20px; 
+                width: 100%;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(58, 58, 105, 0.1);
+            }
+            
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+            /* --- FIM DO CSS DO MENU --- */
+
+            .about-grid {
+                grid-template-columns: 1fr; 
+            }
+            .about-container {
+                padding: 30px 20px;
+            }
+            
+            .about-container h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 900px) {
+             .about-grid {
+                grid-template-columns: 1fr 1fr; 
+            }
+            .profile-card:last-child:nth-child(odd) {
+                grid-column: span 2;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            
+            <!-- Logotipo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo Cuidar é Proteger" onerror="this.style.display='none'; this.parentNode.innerText='Cuidar é Proteger'">
+                </a>
+            </div>
+
+            <!-- Botão Hambúrguer -->
+            <button class="hamburger-menu" aria-label="Abrir menu" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+
+            <!-- Menu (links) -->
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html">Divulgação de informações</a></li>
+                    <li><a href="sobre.html" class="active">Sobre nós</a></li>
+                    <li><a href="pesquisa.html">Pesquisa completa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="about-container">
+            <h2>Nossa Equipe</h2>
+            <p>Este projeto é o resultado do trabalho colaborativo de estudantes do Curso Técnico em Enfermagem da Escola Estadual de Educação Profissional e Tecnológica de Cáceres "Professor Adriano Silva", com a orientação de nossa professora. Conheça quem somos:</p>
+
+            <div class="about-grid">
+                
+                <!-- Perfil 1 -->
+                <div class="profile-card">
+                    <img src="autora-monique.jpg" alt="Foto de Monique Isabelle Camargo de Lima">
+                    <div class="info">
+                        <h3>Monique Isabelle Camargo de Lima</h3>
+                        <span class="role">Co-autora da Pesquisa</span>
+                        <p>Estudante do curso Técnico em Enfermagem da ETEC Cáceres – MT. Monique Isabelle é estudante de técnico em enfermagem e formada como técnica em Informática. Une seu conhecimento tecnológico à sua formação em saúde para contribuir com projetos que promovem informação acessível, confiável e de qualidade. Atua no desenvolvimento e organização de conteúdos voltados à promoção da saúde e à conscientização social.</p>
+                    </div>
+                </div>
+
+                <!-- Perfil 2 -->
+                <div class="profile-card">
+                    <img src="autora-priscila.jpg" alt="Foto de Priscila Francisco de Oliveira">
+                    <div class="info">
+                        <h3>Priscila Francisco de Oliveira</h3>
+                        <span class="role">Co-autora da Pesquisa</span>
+                        <p>Estudante do curso Técnico em Enfermagem da ETEC Cáceres – MT. Priscila Francisco de Oliveira é estudante dos cursos técnicos de Enfermagem, e de Informática integrado ao ensino médio. Interessada em unir o cuidado com a saúde e o avanço tecnológico, dedica-se a estudos voltados à promoção da saúde. Busca constantemente ampliar seus conhecimentos e contribuir para uma sociedade mais consciente e saudável.</p>
+                    </div>
+                </div>
+
+                <!-- Perfil 3 -->
+                <div class="profile-card">
+                    <img src="professora-isaura.jpg" alt="Foto da Professora Isaura Carolina Brandão">
+                    <div class="info">
+                        <h3>Prof. Esp. Isaura Carolina Brandão</h3>
+                        <span class="role">Orientadora</span>
+                        <p>Isaura Carolina Brandão Bezerra é Nordestina, enfermeira, especialista em terapia intensiva, formada pela Universidade Federal de Campina Grande. Atualmente, atua como docente na ETEC e como enfermeira assistente em uma clínica de alergia. É apaixonada pela família e acredita que a educação é o principal instrumento de transformação social.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <!-- SCRIPT PARA O MENU HAMBÚRGUER -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+
+</body>
+</html>

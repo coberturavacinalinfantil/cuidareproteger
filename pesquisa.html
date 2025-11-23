@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa Completa - Cuidar é Proteger</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Variáveis de Cor e Fonte --- */
+        :root {
+            --dark-blue: #3A3A69;
+            --light-teal: #B9D4D1; 
+            --beige: #EAEAE2;
+            --light-mint: #E0EFEF;
+            --text-light: #FFFFFF;
+            --text-dark: #222222;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* --- Configurações Globais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-blue);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- BARRA DE NAVEGAÇÃO --- */
+        header {
+            background-color: #cde3e0;
+            padding: 10px 0; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between; /* Separa Logo e Menu */
+            align-items: center;
+            min-height: 60px; /* (AUMENTADO) Altura mínima maior */
+        }
+
+        /* (AJUSTADO) Estilo do Logotipo */
+        .logo a {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px; /* (AUMENTADO) De 50px para 80px */
+            width: auto;
+            margin-right: 10px;
+            display: block;
+            transition: height 0.3s ease;
+        }
+
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .hamburger-menu svg {
+            width: 30px;
+            height: 30px;
+            stroke: var(--dark-blue);
+        }
+        
+        .nav-links {
+            display: block; 
+        }
+
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px; 
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-blue); 
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+
+        .nav-links a.active {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+        
+        /* --- ESTILOS DA PÁGINA DE PESQUISA --- */
+        
+        .article-section {
+            background-color: var(--light-teal);
+            padding: 40px 0;
+        }
+        
+        .research-paper {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--beige);
+            color: var(--text-dark);
+            border-radius: 8px;
+            padding: 30px 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .research-paper h1 {
+            font-family: var(--font-heading);
+            color: var(--dark-blue);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .research-paper .authors {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+        
+        .research-paper .affiliation {
+            text-align: center;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .research-paper h2 {
+            font-family: var(--font-heading);
+            color: var(--dark-blue);
+            font-size: 2rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--light-teal);
+            padding-bottom: 10px;
+        }
+
+        .research-paper p, .research-paper li {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        
+        .research-paper .placeholder {
+            font-weight: 700;
+            color: #9c4a4a;
+            background-color: #fde8e8;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .research-paper .references li {
+            font-size: 0.9rem;
+            text-align: left;
+            margin-bottom: 15px;
+            word-break: break-word; 
+        }
+        
+        .research-paper .references a {
+            color: var(--dark-blue);
+            text-decoration: none;
+            word-break: break-all; 
+        }
+        .research-paper .references a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- CSS PARA IMAGENS DE RESULTADOS --- */
+        .image-container {
+            margin: 30px 0; 
+        }
+        .research-image {
+            max-width: 650px;  
+            width: 100%;       
+            display: block;    
+            margin: 0 auto;    
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .image-caption {
+            font-size: 0.9rem;
+            color: #555;
+            font-style: italic;
+            margin-top: 10px;
+            text-align: center; 
+            padding: 0 20px; 
+        }
+        
+        /* --- Responsividade (Telas Pequenas) --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                justify-content: space-between; 
+            }
+
+            /* (AJUSTADO) Logo no Mobile */
+            .logo img {
+                height: 60px; 
+            }
+
+            .hamburger-menu {
+                display: block; 
+                z-index: 1100;
+            }
+
+            .nav-links {
+                display: none; 
+                position: absolute;
+                top: 80px; /* (AJUSTADO) Compensar header maior */
+                right: 0;
+                background-color: #cde3e0;
+                width: 70%; 
+                box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+                border-radius: 0 0 0 8px;
+            }
+            
+            .nav-links.active {
+                display: block; 
+            }
+
+            .nav-links ul {
+                flex-direction: column; 
+                gap: 0;
+                width: 100%;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: right; 
+            }
+
+            .nav-links a {
+                display: block; 
+                padding: 15px 20px; 
+                width: 100%;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(58, 58, 105, 0.1);
+            }
+            
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+            /* FIM DO CSS DO MENU */
+            
+            .research-paper {
+                padding: 20px 25px; 
+            }
+            .research-paper h1 {
+                font-size: 2rem; 
+            }
+            
+            .research-image {
+                max-width: 100%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGAÇÃO -->
+    <header>
+        <div class="nav-container">
+            
+            <!-- Logotipo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo Cuidar é Proteger" onerror="this.style.display='none'; this.parentNode.innerText='Cuidar é Proteger'">
+                </a>
+            </div>
+
+            <!-- Botão Hambúrguer -->
+            <button class="hamburger-menu" aria-label="Abrir menu" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+
+            <!-- Menu (links) -->
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="index.html">Divulgação de informações</a></li>
+                    <li><a href="sobre.html">Sobre nós</a></li>
+                    <li><a href="pesquisa.html" class="active">Pesquisa completa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL DA PÁGINA "PESQUISA" -->
+    <main>
+        <section class="article-section">
+            
+            <article class="research-paper">
+                
+                <!-- Cabeçalho do Artigo -->
+                <h1>COBERTURA VACINAL INFANTIL: UMA ANÁLISE DAS PRINCIPAIS BARREIRAS</h1>
+                <p class="authors">Monique Isabelle Camargo de Lima<br>Priscila Francisco de Oliveira</p>
+                <p class="affiliation">
+                    Orientadora: Prof. Esp. Isaura Carolina Brandão<br>
+                    Escola Estadual de Educação Profissional e Tecnológica de Cáceres "Professor Adriano Silva"<br>
+                    Curso Técnico em Enfermagem. Cáceres - MT, 2025.
+                </p>
+
+                <!-- RESUMO -->
+                <h2>RESUMO</h2>
+                <p>
+                    O presente estudo tem como objetivo compreender os fatores que ocasionam a recusa do  processo de imunização infantil e identificar o papel dos profissionais da saúde para que  possamos colaborar para o crescimento do índice vacinal em crianças e conscientizar a  população brasileira. Para identificar a problemática e desenvolver a pesquisa, foram utilizadas bases de dados como Ministério da Saúde, Ministério Público, Scielo, Google  Scholar e PubMed, utilizando filtros para selecionar artigos e informações publicadas entre os anos de 2019 e 2024 e com palavras-chave como “Cobertura Vacinal”, “Recusa à Vacina” e “Adesão à Vacinação” no título do artigo. 
+                </p>
+                <p style="text-align: left; background: none; color: inherit; padding: 0; font-weight: normal;">Palavras-Chave: Vacinação da criança, Promoção de Vacinação, Cobertura de Imunização.
+</p>
+
+
+                <!-- INTRODUÇÃO -->
+                <h2>1. INTRODUÇÃO</h2>
+                <p>A vacinação é uma das principais ferramentas para a prevenção de doenças e continua desempenhando um papel crucial na melhoria da saúde pública. O Programa Nacional de Imunizações (PNI), criado em 1973, teve como objetivo a vacinação em massa e a prevenção de doenças infecciosas. Desde a erradicação da varíola até as drásticas reduções da poliomielite, sarampo e outras doenças evitáveis, temos a comprovação da eficácia das vacinas na proteção contra doenças infecciosas, atuando diretamente na preservação da imunidade coletiva. Como uma das grandes conquistas da medicina moderna, as vacinas têm um impacto direto na redução da mortalidade e morbidade associadas a doenças infecciosas. No entanto, atualmente, enfrentam desafios relacionados à baixa adesão, principalmente devido à propagação de desinformação. Assim, a hesitação vacinal pode ser vista como um dos maiores desafios da última década (Fernandes et al, 2024).</p>
+                <p>A relutância em vacinar-se compromete a imunidade coletiva, expondo a população a doenças infecciosas. As razões para essa hesitação podem variar, mas a preocupação com o tema continua crescendo a cada dia. Pesquisas apontam que os fatores determinantes dessa hesitação são conhecidos como os cinco Cs: (I) Complacência, que se refere à indiferença, desinformação ou até mesmo à subestimação do sistema vacinal; (II) Conveniência, que diz respeito à falta de acesso fácil ou à dificuldade prática de se vacinar, considerando as condições vividas pelos cidadãos; (III) Confiança, que se refere à credibilidade no sistema de saúde e nas instituições responsáveis pela vacinação; (IV) Comunicação, que envolve esclarecer questionamentos, desmistificar informações falsas e corrigir dados errôneos; e (V) Contexto, que leva em consideração fatores como etnia, religião, ocupação e condições socioeconômicas, que podem influenciar a baixa adesão às vacinas (Fernandez, M. et al, 2024).</p>
+                <p>O fenômeno da hesitação vacinal não é recente, mas se intensificou com a propagação de informações falsas e mitos nas plataformas digitais, o que tem contribuído para uma crescente desconfiança no sistema de saúde e nas vacinas. Compreender os fatores que geram hesitação vacinal é essencial para o desenvolvimento de estratégias de enfrentamento, como campanhas de conscientização, programas de fácil acesso às vacinas e o envolvimento de lideranças locais na promoção da vacinação. Entre os problemas crescentes que cercam essa questão, a complacência faz-se presente desde o início do fenômeno. Quando os indivíduos percebem a diminuição da incidência de determinadas enfermidades, tendem a negligenciar o risco de contágio e, consequentemente, a importância da vacinação (Fernandes et al, 2024).</p>
+
+                <!-- METODOLOGIA -->
+                <h2>2. METODOLOGIA</h2>
+                <p>Este estudo foi desenvolvido através de uma abordagem baseada em revisão bibliográfica e análise de dados secundários, com o objetivo de investigar as causas da baixa cobertura vacinal infantil no Brasil. A pesquisa tem como fundamento principal a coleta e análise crítica de informações já consolidadas em fontes científicas e oficiais, permitindo um entendimento abrangente do problema sem a necessidade de coleta primária de dados. (Silva, 2020).</p>
+                <p>A revisão bibliográfica ocorreu mediante busca sistemática nas principais bases de dados científicas durante o período da pesquisa (ano de 2025), incluindo SciELO, DATASUS, PubMed e DeCS (entre outros), utilizando combinações de descritores como "cobertura vacinal", "hesitação vacinal", "imunização infantil" e "Programa Nacional de Imunizações". Foram incluídos artigos publicados entre os anos de 2019 e 2024, com ênfase em estudos brasileiros que abordam os determinantes para que haja a baixa adesão à vacinação infantil, além de mapear estratégias bem-sucedidas empregadas em diferentes contextos. Os resultados atingidos durante o projeto serão apresentados por meio de gráficos.</p>
+                <p>Em seguida, foi realizado um levantamento detalhado de dados secundários a partir de fontes oficiais do Sistema Único de Saúde. O Sistema de Informação do Programa Nacional de Imunizações (SI-PNI) e as bases do DATASUS fornecerão informações quantitativas sobre as coberturas vacinais por região, faixa etiária e tipo de vacina no período delimitado. Esses dados serão analisados mediante métodos estatísticos descritivos, com cálculo de porcentagens, taxas de variação e comparações temporais, permitindo identificar tendências e áreas críticas que demandam intervenções prioritárias.</p>
+                <p>A junção entre as pesquisas científicas publicadas e os registros epidemiológicos oficiais proporcionará uma visão mais aprofundada da problemática investigada. Como produto final, a síntese dessas evidências será organizada em um relatório técnico que apresentará: (1) diagnóstico atualizado da situação vacinal infantil no país; (2) análise das principais barreiras identificadas; e (3) recomendações baseadas em evidências para a atuação dos profissionais de saúde, particularmente os técnicos em Enfermagem, no enfrentamento desse desafio (Gugel, 2020).</p>
+                <p>A fase de iniciação à coleta de dados teve como foco reunir as informações necessárias que subsidiarão a análise da baixa adesão à vacinação infantil. Nesta etapa, a coleta de dados foi realizada por meio de uma revisão bibliográfica, com o objetivo de identificar estudos recentes que abordam a temática da imunização infantil e os fatores relacionados à baixa cobertura vacinal.</p>
+                <p>Para isso, foi utilizada a base de dados DeCS (Descritores em Ciências da Saúde), onde a palavra-chave inicial foi “vacinação”. Dentro dessa busca, foi identificado o descritor “imunização”, que direcionou a seleção dos artigos. Em seguida, aplicaram-se filtros específicos com os termos “vacina BCG”, “criança” e “vacinação infantil”, resultando em 85 artigos relacionados ao tema geral da vacinação. Após a leitura e triagem, 11 artigos foram selecionados por apresentarem maior ênfase na vacinação infantil e em aspectos diretamente ligados à adesão vacinal.</p>
+                <p>Durante essa fase, todos os materiais selecionados foram analisados quanto à atualidade, relevância e contribuição para o entendimento do problema estudado. Os dados obtidos nessa revisão servirão como base para a análise e discussão dos resultados, permitindo compreender com maior profundidade os fatores que influenciam a hesitação vacinal e a atuação dos profissionais de saúde na promoção da imunização infantil.</p>
+
+                <!-- RESULTADOS E DISCUSSÃO -->
+                <h2>3. RESULTADOS E DISCUSSÃO</h2>
+                <p>De acordo com os estudos analisados, foi possível observar que a cobertura vacinal infantil vem diminuindo progressivamente no Brasil, principalmente após o primeiro ano de vida. Em Araraquara (SP), apenas 69% das crianças apresentavam esquema vacinal completo aos 24 meses, enquanto 77% possuíam o esquema completo aos 12 meses (Marvila, 2022).</p>
+                <p>Em Arapiraca (AL), há uma situação semelhante: 91,8% das crianças apresentam cobertura completa aos 12 meses de idade, caindo para 75,2% ao fim dos 24 meses (Rodrigues, 2024).</p>
+                <p>Ademais, no município de Londrina (PR) a cobertura vacinal aos 12 meses foi de 64,2% e aos dois anos caiu para 54,4% (Oliveira et al., 2024).</p>
+                
+                <!-- Imagem 1 -->
+                <div class="image-container">
+                    <img src="resultado-img-1.jpg" alt="Gráfico ou imagem de resultados 1" class="research-image">
+                </div>
+                
+                <p>Essa observação reforça a hipótese inicial da pesquisa, ou seja, os índices relacionados à cobertura vacinal infantil demonstram queda significativa em determinadas regiões do Brasil, demonstrando tendência a uma queda contínua com o passar dos anos e apresentando risco de reintrodução de doenças previamente controladas por meio da imunização.</p>
+                <p>Entretanto, o estudo realizado em Londrina (PR) revelou um padrão inverso ao esperado na relação entre desigualdade social e vacinação infantil. Enquanto grupos com maior poder aquisitivo demonstram menor adesão às vacinas, os grupos de baixa renda apresentaram a maior cobertura vacinal.</p>
+                <p>Nesse contexto, as famílias foram divididas em A (classe alta) , B (classe média-alta), C (classe média-baixa) e D (classe baixa). O estrato D obteve 70% de cobertura, enquanto o estrato A obteve apenas 36%, sugerindo que a hesitação vacinal é mais concentrada em famílias com maiores níveis socioeconômicos (Oliveira et al., 2024).</p>
+
+                <!-- Imagem 2 -->
+                <div class="image-container">
+                    <img src="resultado-img-2.jpg" alt="Gráfico ou imagem de resultados 2" class="research-image">
+                </div>
+                
+                <p>Esses dados indicam que a desinformação e a baixa percepção do risco de doenças infecciosas estão mais presentes nas camadas com maior renda, que podem acabar negligenciando a imunização. Em contrapartida, as populações mais vulneráveis do ponto de vista econômico, mesmo com limitações de acesso, demonstram mais confiança e valorização em relação às campanhas de vacinação.</p>
+                <p>Dentre os fatores determinantes dessa baixa adesão, os estudos realizados em Araraquara revelaram desafios logísticos e informacionais. Entre os principais motivos relatados pelas mães estavam: problemas de saúde no parto ou pós-parto, experiências com reações adversas em situações anteriores, falta de vínculo com os profissionais de saúde e influência de informações falsas (Marvila, 2022).</p>
+                <p></p>
+
+                <!-- Imagem 3 -->
+                <div class="image-container">
+                    <img src="resultado-img-3.jpg" alt="Gráfico ou imagem de resultados 3" class="research-image">
+                </div>
+                
+                <p>A autora reforça que mães que receberam orientações adequadas dos profissionais de saúde durante o pré-natal e o puerpério apresentaram maior adesão ao calendário vacinal e menor hesitação, destacando o papel da comunicação humanizada e do esclarecimento de dúvidas por parte das equipes de enfermagem como meio de redução dos atrasos vacinais (Marvila, 2022).</p>
+
+                <!-- CONCLUSÃO -->
+                <h2>4. CONSIDERAÇÕES FINAIS</h2>
+                <p>Os dados analisados demonstram que a queda na cobertura vacinal é um fenômeno multifatorial, influenciado por determinantes sociais, culturais, estruturais e informacionais. As diferenças entre coberturas regionais destacam que não existe uma causa única, mas um conjunto de desafios que exigem uma resposta articulada dos órgãos competentes e profissionais de saúde.</p>
+                <p>Diversos estudos apontam que, para além da hesitação vacinal, condições socioeconômicas e a organização dos serviços de saúde desempenham um papel essencial no cumprimento do calendário de imunização. Um levantamento nacional evidenciou que municípios com infraestrutura precária na Atenção Primária à Saúde e rotatividade de profissionais apresentam maior probabilidade de possuírem esquemas vacinais incompletos, reforçando a importância da continuidade do cuidado e da estabilidade dos serviços de saúde  (Moraes et al., 2024).</p>
+                <p> Além disso, o impacto da COVID-19 acentuou a desorganização dos fluxos de atendimento e reduziu a procura das famílias por salas de vacinação. Um estudo realizado com dados nacionais de 2015 a 2022 demonstrou que a pandemia resultou em uma queda média de 20% nas coberturas vacinais infantis, com uma retomada lenta e desigual entre regiões, revelando a necessidade de reconstrução da confiança nas vacinas (Luhm et al., 2024).</p>
+                <p>Os achados de Algodres et al. (2024) também reforçam a importância de aprimorar o sistema de informação vacinal no Brasil. Em seu estudo realizado nos municípios de São Paulo e Campinas, foi constatada uma discrepância entre os dados registrados no Sistema de Informação do Programa Nacional de Imunizações (SI-PNI) e os resultados obtidos em inquéritos populacionais, evidenciando que as coberturas vacinais podem estar superestimadas em algumas regiões. Tal constatação indica a necessidade de fortalecer os mecanismos de monitoramento e registro, assegurando a fidedignidade dos indicadores nacionais e contribuindo para a formulação de estratégias mais eficazes no enfrentamento da queda da cobertura vacinal infantil.</p>
+                <p>Ademais, a desinformação digital foi identificada como um dos principais agravantes da hesitação vacinal. Um estudo realizado pela Fiocruz e publicado na RESS identificou que pais expostos a conteúdos antivacina em redes sociais apresentaram duas vezes mais probabilidade de atrasar a vacina ou recusar doses de reforço, mesmo com acesso regular ao sistema de saúde  (Lima et al., 2024). Esse dado reforça a urgência da propagação de estratégias de comunicação baseadas em evidências.</p>
+                <p>A desigualdade regional também é notável. Em estudo realizado com base em dados do Sistema de Informação do Programa Nacional de Imunizações (SI-PNI) verificou-se que as regiões Norte e Nordeste apresentam menores coberturas médias para vacinas como poliomielite, pentavalente e tríplice viral quando comparadas ao Sul e ao Sudeste (Boing et al., 2024). Nesse contexto, barreiras como distância geográfica, transporte público deficiente e escassez de salas de vacinação foram classificadas como fatores que colaboram para essas diferenças.</p>
+                <p>Outro estudo, com foco em tendências temporais, observou que, embora o Brasil ainda tenha índices de vacinação superiores à média mundial, o país perdeu o padrão de homogeneidade entre os estados, representando um retrocesso nos princípios de equidade do Sistema Único de Saúde - SUS (Franco et al., 2024). Essa falta de consistência pode comprometer a imunidade coletiva e aumentar o risco de reintrodução de doenças já controladas.</p>
+                <p>Diante desse cenário, torna-se visível que a recuperação das coberturas vacinais exige ações imediatas, entre as quais: O fortalecimento da Atenção primária à Saúde, com o objetivo de reconquistar a confiança dos pais e responsáveis quanto à imunização infantil; Realizar campanhas de comunicação, visando combater a desinformação e valorizar o SUS; Monitoramento em tempo real das coberturas, com o objetivo de elaborar respostas rápidas às quedas regionais e evitar surtos de doenças que podem ser contidas por meio da vacinação e principalmente, restabelecer o vínculo entre famílias e profissionais da saúde.</p>
+                <p>Portanto, os estudos revisados convergem para a hipótese inicial: A vacinação é um direito e uma conquista social, entretanto, a mesma depende da confiança, do acesso à informação e de fatores socioeconômicos. A hesitação vacinal, embora crescente, pode ser revertida por meio de estratégias integrando educação em saúde, políticas públicas e valorização profissional, especialmente técnicos e enfermeiros, para a atuação direta com a comunidade, que é fundamental para a proteção da infância e da saúde coletiva no Brasil.</p>
+
+                <!-- SEÇÃO DE REFERÊNCIAS COMPLETA -->
+                <h2>REFERÊNCIAS</h2>
+                <ul class="references">
+                    <li>
+                        ALGODRES, Manoela Alves et al. Vaccination coverage in children up to 2 years old born in 2017 and 2018 in the municipalities of São Paulo and Campinas, Brazil: comparison of the results of a national survey and the National Immunization Program Information System. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e2023539, 2024. Disponível em: <a href="https://pubmed.ncbi.nlm.nih.gov/39813546/" target="_blank" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/39813546/</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        BOING, Antônio Fernando et al. Iniquidades raciais na vacinação infantil e barreiras à vacinação no Brasil entre nascidos vivos em 2017 e 2018: análise de coorte retrospectiva dos dois primeiros anos de vida. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231216, 2024. Disponível em: <a href="https://pubmed.ncbi.nlm.nih.gov/39194084/" target="_blank" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/39194084/</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        CHANNEY, D.; LEE, M. S. W. COVID-19 Vaccines and Anti-Consumption: Understanding Anti-Vaxxers Hesitancy. Journal of Consumer Affairs, v. 56, n. 1, p. 306-335, 2022. Disponível em: <a href="https://ideas.repec.org/p/hal/journl/hal-04445107.html" target="_blank" rel="noopener noreferrer">https://ideas.repec.org/p/hal/journl/hal-04445107.html</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        DATASUS. Cobertura vacinal infantil (2001-2010). Disponível em: <a href="http://tabnet.datasus.gov.br/cgi/deftohtm.exe?pni/cnv/coberturabr.def" target="_blank" rel="noopener noreferrer">http://tabnet.datasus.gov.br/cgi/deftohtm.exe?pni/cnv/coberturabr.def</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        DOMINGUES, Carla Magda Allan Santos et al. Pesquisa Nacional de Cobertura Vacinal. Ciência & Saúde Coletiva, v. 26, n. 9, p. 4333-4348, 2021. Disponível em: <a href="https://doi.org/10.1590/1413-81232021269.17642021" target="_blank" rel="noopener noreferrer">https://doi.org/10.1590/1413-81232021269.17642021</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        FERNANDES, Eder Gatti et al. Cobertura e hesitação vacinal no Brasil: inquérito revela a realidade e oferece subsídios para a Política Nacional de Imunizações. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e2024638, 2024. Disponível em: <a href="https://www.scielo.br/j/ress/a/JQcj6XDMkTL4TmtbXN4mXYw/?format=pdf&lang=pt" target="_blank" rel="noopener noreferrer">https://www.scielo.br/j/ress/a/JQcj6XDMkTL4TmtbXN4mXYw/?format=pdf&lang=pt</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        FERNANDEZ, Michelle et al. Os motivos da hesitação vacinal no Brasil: uma análise a partir da percepção dos profissionais de saúde que atuaram na pandemia da COVID-19. Saúde e Sociedade, v. 33, n. 4, p. e230239, 2024. Disponível em: <a href="https://www.scielo.br/j/sausoc/a/zsfSyPJq7ZBdGFszkY6Mbvc/abstract/?lang=pt" target="_blank" rel="noopener noreferrer">https://www.scielo.br/j/sausoc/a/zsfSyPJq7ZBdGFszkY6Mbvc/abstract/?lang=pt</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        FRANCO, Alessandra Lucchesi de Menezes Xavier et al. Analysis of polio vaccination status in a cohort of live births in 2017 and 2018 in Brazilian cities: a national vaccination coverage survey. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231303, 2024. Disponível em: <a href="https://scite.ai/reports/analysis-of-polio-vaccination-status-A3kMr0je" target="_blank" rel="noopener noreferrer">https://scite.ai/reports/analysis-of-polio-vaccination-status-A3kMr0je</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        GUGEL, Maria C. G. O trabalho do técnico em enfermagem na sala de vacinação infantil. Revista Recien, v. 10, n. 32, p. 115-126, 2020. Disponível em: <a href="https://www.atenas.edu.br/uniatenas/assets/files/spic/monography/O_PAPEL_DO_ENFERMEIRO_NAS_CAMPANHAS_DE_VACINACAO_INFANTIL.pdf" target="_blank" rel="noopener noreferrer">https://www.atenas.edu.br/uniatenas/assets/files/spic/monography/O_PAPEL_DO_ENFERMEIRO_NAS_CAMPANHAS_DE_VACINACAO_INFANTIL.pdf</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        GUGEL, Maria C. G. Percepções acerca da importância da vacinação e da recusa vacinal numa escola de medicina. Revista Paulista de Pediatria, v. 39, p. e2020295, 2021. Disponível em: <a href="https://www.scielo.br/j/rpp/a/t8T6KKsDzP5GM6vc5rvPjrR/?format=pdf&lang=pt" target="_blank" rel="noopener noreferrer">https://www.scielo.br/j/rpp/a/t8T6KKsDzP5GM6vc5rvPjrR/?format=pdf&lang=pt</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        LIMA, Jaqueline Costa et al. Vaccine coverage by social strata in state capitals in the Brazilian Midwest region: a household survey of children born in 2017 and 2018. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231341, 2024. Disponível em: <a href="https://www.scielo.br/j/ress/a/KZ6SpTgbHQvYjnkpNFmNwVM/?lang=en" target="_blank" rel="noopener noreferrer">https://www.scielo.br/j/ress/a/KZ6SpTgbHQvYjnkpNFmNwVM/?lang=en</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        LUHM, Karin Regina et al. Vaccination coverage and delay in vaccination of infants born in 2017 and 2018 in municipalities in the Southern region of Brazil. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231101, 2024. Disponível em: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11537178/" target="_blank" rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC11537178/</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        MARVILA, Érica. Fatores associados à hesitação materna em vacinar e à situação vacinal de crianças de até dois anos de idade em Araraquara-SP. Doutorado em Saúde Pública—São Paulo: Universidade de São Paulo, 2022. Disponível em: <a href="https://repositorio.usp.br/item/003081442" target="_blank" rel="noopener noreferrer">https://repositorio.usp.br/item/003081442</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        MATOS, C. C. S. A.; AVELINO-SILVA, V. I.; COUTO, M. T. A politização das vacinas e sua influência nas opiniões de cuidadores brasileiros acerca da vacinação infantil de rotina. Ciência & Saúde Coletiva, p. e20231206, 2025. Disponível em: <a href="http://www.cienciaesaudecoletiva.com.br/en/articles/a-politizacao-das-vacinas-e-sua-influencia-nas-opinioes-de-cuidadores-brasileiros-acerca-da-vacinacao-infantil-de-rotina/18959" target="_blank" rel="noopener noreferrer">http://www.cienciaesaudecoletiva.com.br/en/articles/a-politizacao-das-vacinas-e-sua-influencia-nas-opinioes-de-cuidadores-brasileiros-acerca-da-vacinacao-infantil-de-rotina/18959</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        MORAES, José Cássio de et al. Complete vaccination coverage of children born in 2017-2018, living in urban areas of state capitals and in 12 inland cities in Brazil: a population-based survey from a retrospective cohort study. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231174, 2024. Disponível em: <a href="https://www.scielo.br/j/ress/a/vPwx97hRZXBNFVFKyVgFYBy/?lang=pt" target="_blank" rel="noopener noreferrer">https://www.scielo.br/j/ress/a/vPwx97hRZXBNFVFKyVgFYBy/?lang=pt</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        OLIVEIRA, Edmilson De et al. Vaccination coverage survey by social stratum in children up to 24 months of age in Londrina, Paraná, Brazil, between 2021 and 2022. Epidemiologia e Serviços de Saúde, v. 33, n. spe2, p. e20231393, 2024. Disponível em: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11493398/" target="_blank" rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC11493398/</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        Programa Nacional de Imunizações. Disponível em: <a href="https://www.gov.br/saude/pt-br/composicao/svsa/pni" target="_blank" rel="noopener noreferrer">https://www.gov.br/saude/pt-br/composicao/svsa/pni</a>. Acesso em: 13 de maio. 2025.
+                    </li>
+                    <li>
+                        RODRIGUES, Ana Paula Rebelo Aquino. Cobertura vacinal e fatores associados ao esquema incompleto de vacinação em crianças aos 12 e 24 meses de idade em cidades de médio porte na região nordeste do Brasil. Doutorado em Saúde Pública—São Paulo: Universidade de São Paulo, 22 fev. 2024. Disponível em: <a href="https://www.teses.usp.br/teses/disponiveis/6/6143/tde-03042024-154819/publico/RodriguesAPRA_DR_simplificada.pdf" target="_blank" rel="noopener noreferrer">https://www.teses.usp.br/teses/disponiveis/6/6143/tde-03042024-154819/publico/RodriguesAPRA_DR_simplificada.pdf</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        SILVA, Juliana. ANÁLISE METODOLÓGICA SOBRE AS DIFERENTES CONFIGURAÇÕES DA PESQUISA BIBLIOGRÁFICA. Revista Brasileira de Iniciação Científica (RBIC), v. 8, n. 1, p. e021029, 2020. Disponível em: <a href="https://periodicoscientificos.itp.ifsp.edu.br/index.php/rbic/article/download/113/235" target="_blank" rel="noopener noreferrer">https://periodicoscientificos.itp.ifsp.edu.br/index.php/rbic/article/download/113/235</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                    <li>
+                        WHO. IMMUNIZATION AGENDA 2030. 2023. Disponível em: <a href="https://www.who.int/docs/default-source/immunization/strategy/ia2030/ia2030-document-en.pdf" target="_blank" rel="noopener noreferrer">https://www.who.int/docs/default-source/immunization/strategy/ia2030/ia2030-document-en.pdf</a>. Acesso em 01 de novembro de 2025.
+                    </li>
+                </ul>
+
+            </article>
+            
+        </section>
+    </main>
+
+    <!-- SCRIPT PARA O MENU HAMBÚRGUER -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const isExpanded = navLinks.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+
+</body>
+</html>
